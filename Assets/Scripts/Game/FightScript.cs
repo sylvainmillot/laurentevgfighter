@@ -35,7 +35,7 @@ public class FightScript : MonoBehaviour {
 		// Default fighters for debugging
 		if (Global.player1File == "" || Global.player2File == "") {
 			Global.player1File = "Hugo";
-			Global.player2File = "Sylvain";
+			Global.player2File = "MaiLy";
 		}
 
 		if (Global.levelFile == "") {
@@ -144,14 +144,14 @@ public class FightScript : MonoBehaviour {
 		player1.name = Global.player1File;
 		player2.name = Global.player2File;
 
-		player1Name.text = player1.name;
-		player2Name.text = player2.name;
-
 		player1Script = player1.GetComponent<PlayerControls> ();
 		player2Script = player2.GetComponent<PlayerControls> ();
 
 		player1Script.SetControls (1);
 		player2Script.SetControls (2);
+
+		player1Name.text = player1Script.fighterName != "" ? player1Script.fighterName : player1.name;
+		player2Name.text = player2Script.fighterName != "" ? player2Script.fighterName : player2.name;
 
 		player1Script.life = player1Script.initialLife;
 		player2Script.life = player2Script.initialLife;

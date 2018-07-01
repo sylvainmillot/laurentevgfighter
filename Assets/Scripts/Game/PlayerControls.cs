@@ -12,6 +12,7 @@ public class PlayerControls : MonoBehaviour {
 	public KeyCode jumpKey;
 	public string axis;
 	public int fighterNumber;
+	public string fighterName;
 
 	protected float h;
 	protected float speed = 600;
@@ -20,7 +21,9 @@ public class PlayerControls : MonoBehaviour {
 	public int initialLife = 100;
 	public int life;
 
+	protected float lastPunchAnim = 0;
 	protected float lastPunch = 0;
+	protected float lastSpecial = 0;
 	protected float lastHit = 0;
 	protected bool isHitted = false;
 	public bool isGuarding = false;
@@ -90,14 +93,17 @@ public class PlayerControls : MonoBehaviour {
 		}
 
 		// Punch
-		if (Input.GetKeyDown (punchKey)) {
+		if (Input.GetKeyDown (punchKey) && (Time.time - lastPunch > .5 || lastPunch == 0)) {
 			lastPunch = Time.time;
+			lastPunchAnim = Time.time;
 			idle.SetActive (false);
 			punchScript.Punch ();
 		}
 
 		// Special
-		if (Input.GetKeyDown (specialKey)) {
+		if (Input.GetKeyDown (specialKey) && (Time.time - lastSpecial > 5 || lastSpecial == 0)) {
+			lastSpecial = Time.time;
+
 			audioSource.PlayOneShot (specialSound);
 
 			float specialX = transform.InverseTransformDirection (Vector3.left).x;
@@ -113,8 +119,8 @@ public class PlayerControls : MonoBehaviour {
 		}
 
 		// Reset after punch
-		if (Time.time - lastPunch > 0.2f) {
-			lastPunch = 0;
+		if (Time.time - lastPunchAnim > 0.2f) {
+			lastPunchAnim = 0;
 			idle.SetActive (true);
 			punchScript.StopPunch ();
 		}
@@ -148,7 +154,7 @@ public class PlayerControls : MonoBehaviour {
 			rightKey = KeyCode.D;
 			jumpKey = KeyCode.Z;
 			punchKey = KeyCode.LeftControl;
-			specialKey = KeyCode.LeftAlt;
+			specialKey = KeyCode.LeftShift;
 			axis = "Player1Horizontal";
 			fighterNumber = 1;
 		}
@@ -158,7 +164,7 @@ public class PlayerControls : MonoBehaviour {
 			rightKey = KeyCode.RightArrow;
 			jumpKey = KeyCode.UpArrow;
 			punchKey = KeyCode.RightControl;
-			specialKey = KeyCode.RightAlt;
+			specialKey = KeyCode.RightShift;
 			axis = "Player2Horizontal";
 			fighterNumber = 2;
 		}
