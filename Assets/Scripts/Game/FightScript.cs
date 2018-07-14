@@ -56,6 +56,10 @@ public class FightScript : MonoBehaviour {
 			secondsRemaining = time - (int)fightTimer;
 		}
 
+		if (secondsRemaining <= 0) {
+			secondsRemaining = 0;
+		}
+
 		string displayTime = "";
 		displayTime = secondsRemaining.ToString ();
 		timer.text = displayTime;
@@ -78,6 +82,7 @@ public class FightScript : MonoBehaviour {
 		cameraMain.transform.position = Vector3.Lerp (cameraMain.transform.position, new Vector3 (cameraTarget.x, cameraMain.transform.position.y, cameraMain.transform.position.z), 5f * Time.deltaTime);
 		background.transform.position = new Vector3 (cameraMain.transform.position.x * 0.7f, background.transform.position.y, background.transform.position.z);
 
+		// Player 1 KO
 		if (player1 != null && player1Script.enabled == true && player1Script.life <= 0 && !pause) {
 			scorePlayer2++;
 
@@ -88,6 +93,7 @@ public class FightScript : MonoBehaviour {
 			}
 		}
 
+		// Player 2 KO
 		if (player2 != null && player2Script.enabled == true && player2Script.life <= 0 && !pause) {
 			scorePlayer1++;
 
@@ -95,6 +101,29 @@ public class FightScript : MonoBehaviour {
 				NewRound ();
 			} else {
 				Win (1);
+			}
+		}
+
+		// Timer finished
+		if (secondsRemaining <= 0) {
+			if (player1 != null && player1Script.enabled == true && player1Script.life < player2Script.life && !pause) {
+				scorePlayer2++;
+
+				if (scorePlayer2 < scoreToWin) {
+					NewRound ();
+				} else {
+					Win (2);
+				}
+			}
+
+			if (player2 != null && player2Script.enabled == true && player2Script.life < player1Script.life && !pause) {
+				scorePlayer1++;
+
+				if (scorePlayer1 < scoreToWin) {
+					NewRound ();
+				} else {
+					Win (1);
+				}
 			}
 		}
 	}
@@ -158,20 +187,6 @@ public class FightScript : MonoBehaviour {
 
 		player1LifeSlider.value = player1Script.life;
 		player2LifeSlider.value = player2Script.life;
-
-		/*player1.GetComponent<Rigidbody2D> ().velocity = Vector3.zero;
-		player2.GetComponent<Rigidbody2D> ().velocity = Vector3.zero;
-		player1.GetComponent<Rigidbody2D> ().angularVelocity = 0f;
-		player2.GetComponent<Rigidbody2D> ().angularVelocity = 0f;
-
-		player1.transform.position = new Vector3 (-8, -10, 0);
-		player1.transform.rotation = Quaternion.Euler(new Vector3(0,0,0));
-
-		player2.transform.position = new Vector3 (8, -10, 0);
-		player2.transform.rotation = Quaternion.Euler(new Vector3(0,-180,0));
-
-		player1Script.life = player1Script.initialLife;
-		player2Script.life = player2Script.initialLife;*/
 
 		fightTimer = 0f;
 
