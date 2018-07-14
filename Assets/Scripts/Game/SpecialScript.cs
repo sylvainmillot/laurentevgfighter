@@ -10,6 +10,9 @@ public class SpecialScript : MonoBehaviour {
 
 	void Update () {
 		transform.Translate (Vector2.right * speed * Time.deltaTime);
+
+		// Destroy after a few seconds
+		Destroy (gameObject, 5f);
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {
