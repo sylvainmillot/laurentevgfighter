@@ -423,7 +423,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1216934158223458}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: bb2a2988ed68264418b213efe0797e4d, type: 2}
   m_CullingMode: 0
@@ -477,6 +477,7 @@ MonoBehaviour:
   jumpKey: 122
   axis: Player1Horizontal
   fighterNumber: 0
+  fighterName: 
   initialLife: 100
   life: 0
   isGuarding: 0
