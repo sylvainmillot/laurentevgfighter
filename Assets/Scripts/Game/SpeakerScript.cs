@@ -95,13 +95,23 @@ public class SpeakerScript : MonoBehaviour {
 
 	IEnumerator PlayWinRoutine(int player) {
 		StartCoroutine (FadeInText (winText, .1f));
+
+		string playerName = "";
+
 		if (player == 1) {
-			winText.text = Global.player1File + " wins!";
+			playerName = Global.player1File;
 		}
 
 		if (player == 2) {
-			winText.text = Global.player2File + " wins!";
+			playerName = Global.player2File;
 		}
+
+		// Special case for Maï-Ly (wrong filename)
+		if (playerName == "MaiLy") {
+			playerName = "Maï-Ly";
+		}
+
+		winText.text = playerName + " wins!";
 
 		audioSource.PlayOneShot (you);
 
