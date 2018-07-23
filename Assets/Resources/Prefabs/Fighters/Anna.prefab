@@ -197,7 +197,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1920783682726858}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 85c4ec26719d05b4295e7cf1c837b8a3, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -473,7 +473,9 @@ MonoBehaviour:
   specialKey: 0
   jumpKey: 273
   axis: Player2Horizontal
+  punchAxis: 
   fighterNumber: 0
+  fighterName: 
   initialLife: 100
   life: 0
   isGuarding: 0
