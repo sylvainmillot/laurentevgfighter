@@ -34,7 +34,7 @@ public class FightScript : MonoBehaviour {
 	void Start () {
 		// Default fighters for debugging
 		if (Global.player1File == "" || Global.player2File == "") {
-			Global.player1File = "Hugo";
+			Global.player1File = "Laurent";
 			Global.player2File = "MaiLy";
 		}
 

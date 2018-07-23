@@ -7,10 +7,11 @@ public class PlayerControls : MonoBehaviour {
 
 	public KeyCode leftKey;
 	public KeyCode rightKey;
-	public KeyCode punchKey;
-	public KeyCode specialKey;
-	public KeyCode jumpKey;
+	public string punchKey;
+	public string specialKey;
+	public string jumpKey;
 	public string axis;
+	public string punchAxis;
 	public int fighterNumber;
 	public string fighterName;
 
@@ -85,7 +86,7 @@ public class PlayerControls : MonoBehaviour {
 		}
 
 		// Jump
-		if (Input.GetKeyDown (jumpKey)) {
+		if (Input.GetButtonDown (jumpKey)) {
 			if (isGrounded) {
 				isGrounded = false;
 				rb.velocity = new Vector2 (rb.velocity.x, Time.deltaTime * jumpHeight);
@@ -93,7 +94,7 @@ public class PlayerControls : MonoBehaviour {
 		}
 
 		// Punch
-		if (Input.GetKeyDown (punchKey) && (Time.time - lastPunch > .5 || lastPunch == 0)) {
+		if (Input.GetButtonDown (punchKey) && (Time.time - lastPunch > .5 || lastPunch == 0)) {
 			lastPunch = Time.time;
 			lastPunchAnim = Time.time;
 			idle.SetActive (false);
@@ -101,7 +102,7 @@ public class PlayerControls : MonoBehaviour {
 		}
 
 		// Special
-		if (Input.GetKeyDown (specialKey) && (Time.time - lastSpecial > 5 || lastSpecial == 0)) {
+		if (Input.GetButtonDown (specialKey) && (Time.time - lastSpecial > 5 || lastSpecial == 0)) {
 			lastSpecial = Time.time;
 
 			audioSource.PlayOneShot (specialSound);
@@ -136,6 +137,10 @@ public class PlayerControls : MonoBehaviour {
 		isHitted = true;
 		lastHit = Time.time;
 
+		if (gameObject.name == "Laurent") {
+			power = power / 2;
+		}
+
 		if (!isGuarding) {
 			life -= power;
 			punchCoef = 1f;
@@ -152,9 +157,9 @@ public class PlayerControls : MonoBehaviour {
 		if (playerPosition == 1) {
 			leftKey = KeyCode.Q;
 			rightKey = KeyCode.D;
-			jumpKey = KeyCode.Z;
-			punchKey = KeyCode.LeftControl;
-			specialKey = KeyCode.LeftShift;
+			jumpKey = "Jump_P1";
+			punchKey = "Fire1_P1";
+			specialKey = "Fire2_P1";
 			axis = "Player1Horizontal";
 			fighterNumber = 1;
 		}
@@ -162,9 +167,9 @@ public class PlayerControls : MonoBehaviour {
 		if (playerPosition == 2) {
 			leftKey = KeyCode.LeftArrow;
 			rightKey = KeyCode.RightArrow;
-			jumpKey = KeyCode.UpArrow;
-			punchKey = KeyCode.RightControl;
-			specialKey = KeyCode.RightShift;
+			jumpKey = "Jump_P2";
+			punchKey = "Fire1_P2";
+			specialKey = "Fire2_P2";
 			axis = "Player2Horizontal";
 			fighterNumber = 2;
 		}
